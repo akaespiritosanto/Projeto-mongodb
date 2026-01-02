@@ -1,0 +1,91 @@
+<!-- 
+    Game Form View (Create/Edit)
+    Simple Bootstrap form for creating or editing games.
+-->
+<div>
+    <!-- Page Title -->
+    <h2 class="mb-4">{{ $state.current.name === 'gameCreate' ? '➕ Create New Game' : '✏️ Edit Game' }}</h2>
+    
+    <!-- Bootstrap Form -->
+    <div class="card">
+        <div class="card-body">
+            <form ng-submit="saveData(game)" name="gameForm" novalidate>
+                <!-- Required fields are marked with * -->
+                
+                <!-- Game Name (Required) -->
+                <div class="form-group">
+                    <label for="gameName">Name <span class="text-danger">*</span></label>
+                    <input type="text" 
+                   id="gameName"
+                   class="form-control" 
+                   ng-model="game.name" 
+                       placeholder="e.g., League of Legends"
+                       required>
+                </div>
+                
+                <!-- Abbreviation (Required) -->
+                <div class="form-group">
+                    <label for="gameAbbr">Abbreviation <span class="text-danger">*</span></label>
+                    <input type="text" 
+                           id="gameAbbr"
+                           class="form-control" 
+                           ng-model="game.abbreviation" 
+                           placeholder="e.g., LoL, CS2, RL"
+                           maxlength="10"
+                           required>
+                    <small class="form-text text-muted">Short form of the game name (max 10 characters)</small>
+                </div>
+                
+                <!-- Genre (Optional) -->
+                <div class="form-group">
+                    <label for="gameGenre">Genre</label>
+                    <input type="text" 
+                           id="gameGenre"
+                           class="form-control" 
+                           ng-model="game.genre" 
+                           placeholder="e.g., MOBA, FPS, Racing">
+                </div>
+                
+                <!-- Publisher (Optional) -->
+                <div class="form-group">
+                    <label for="gamePublisher">Publisher</label>
+                    <input type="text" 
+                           id="gamePublisher"
+                           class="form-control" 
+                           ng-model="game.publisher" 
+                           placeholder="e.g., Riot Games, Valve">
+                </div>
+                
+                <!-- Release Date (Optional) -->
+                <div class="form-group">
+                    <label for="gameReleaseDate">Release Date</label>
+                    <input type="date" 
+                           id="gameReleaseDate"
+                           class="form-control" 
+                           ng-model="game.releaseDate">
+                </div>
+                
+                <!-- Description (Optional) -->
+                <div class="form-group">
+                    <label for="gameDescription">Description</label>
+                    <textarea id="gameDescription"
+                              class="form-control" 
+                              ng-model="game.description" 
+                              rows="4"
+                              placeholder="Brief description of the game..."></textarea>
+                </div>
+        
+                <!-- Form Actions -->
+                <div class="form-group mt-4">
+                    <button type="submit" 
+                            class="btn btn-primary mr-2"
+                            ng-disabled="gameForm.$invalid">
+                        💾 Save
+                    </button>
+                    <a ui-sref="games" class="btn btn-secondary">❌ Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

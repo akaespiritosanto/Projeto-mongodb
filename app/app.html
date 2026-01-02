@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="routerApp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esports Statistics Platform</title>
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" ui-sref="home">Esports Stats</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" ui-sref="home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" ui-sref="games">Games</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" ui-sref="teams">Teams</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" ui-sref="players">Players</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" ui-sref="tournaments">Tournaments</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" ui-sref="matches">Matches</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <div class="container mt-4" ng-controller="homeController">
+        <!-- This is where AngularJS will inject the view templates -->
+        <div ui-view>
+            <!-- Fallback content while AngularJS loads -->
+            <div class="text-center py-5">
+                <h3>Loading...</h3>
+                <p>If this message persists, check the browser console for errors.</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Debug script to check if files are loading -->
+    <script>
+        // Check if scripts are loading
+        window.addEventListener('load', function() {
+            console.log('=== DEBUG INFO ===');
+            console.log('jQuery loaded:', typeof jQuery !== 'undefined');
+            console.log('AngularJS loaded:', typeof angular !== 'undefined');
+            if (typeof angular !== 'undefined') {
+                console.log('AngularJS version:', angular.version.full);
+                try {
+                    var app = angular.module('routerApp');
+                    console.log('routerApp module found:', !!app);
+                } catch(e) {
+                    console.error('routerApp module error:', e);
+                }
+            }
+            console.log('==================');
+        });
+    </script>
+    
+    <!-- Scripts - Load in correct order -->
+    <!-- jQuery (required for Bootstrap) -->
+    <script src="/node_modules/jquery/dist/jquery.min.js"></script>
+    
+    <!-- Bootstrap JS -->
+    <script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- AngularJS -->
+    <script src="/node_modules/angular/angular.min.js"></script>
+    
+    <!-- Angular UI Router -->
+    <script src="/node_modules/angular-ui-router/release/angular-ui-router.min.js"></script>
+    
+    <!-- Application Scripts -->
+    <script src="/app.js"></script>
+    
+    <!-- Services (must be loaded before controllers) -->
+    <script src="/services/apiService.js"></script>
+    <script src="/services/gameService.js"></script>
+    <script src="/services/teamService.js"></script>
+    <script src="/services/playerService.js"></script>
+    <script src="/services/tournamentService.js"></script>
+    <script src="/services/matchService.js"></script>
+    
+    <!-- Controllers -->
+    <script src="/controllers/homeController.js"></script>
+    <script src="/controllers/gameController.js"></script>
+    <script src="/controllers/teamController.js"></script>
+    <script src="/controllers/playerController.js"></script>
+    <script src="/controllers/tournamentController.js"></script>
+    <script src="/controllers/matchController.js"></script>
+</body>
+</html>
+

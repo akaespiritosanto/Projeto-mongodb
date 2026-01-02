@@ -1,0 +1,115 @@
+<!-- 
+    Team Form View (Create/Edit)
+    Form for creating or editing teams.
+    Includes dropdown to select associated game.
+-->
+<div>
+    <h2 class="mb-4">{{ $state.current.name === 'teamCreate' ? '➕ Create New Team' : '✏️ Edit Team' }}</h2>
+    
+    <div class="card">
+        <div class="card-body">
+            <form ng-submit="saveData(team)" name="teamForm" novalidate>
+        <!-- Team Name (Required) -->
+        <div class="form-group">
+            <label for="teamName">Name <span class="text-danger">*</span></label>
+            <input type="text" 
+                   id="teamName"
+                   class="form-control" 
+                   ng-model="team.name" 
+                   placeholder="e.g., Team SoloMid"
+                   required>
+        </div>
+        
+        <!-- Abbreviation (Optional) -->
+        <div class="form-group">
+            <label for="teamAbbr">Abbreviation</label>
+            <input type="text" 
+                   id="teamAbbr"
+                   class="form-control" 
+                   ng-model="team.abbreviation" 
+                   placeholder="e.g., TSM, G2, SKT"
+                   maxlength="10">
+        </div>
+        
+        <!-- Game Selection (Required) -->
+        <div class="form-group">
+            <label for="teamGame">Game <span class="text-danger">*</span></label>
+            <!-- ng-repeat creates options from games array -->
+            <select id="teamGame"
+                    class="form-control" 
+                    ng-model="team.gameId" 
+                    required>
+                <option value="">Select a game</option>
+                <option ng-repeat="game in games" value="{{ game._id }}">
+                    {{ game.name }} ({{ game.abbreviation }})
+                </option>
+            </select>
+            <small class="form-text text-muted" ng-if="!games || games.length === 0">
+                No games available. <a ui-sref="gameCreate">Create a game first</a>.
+            </small>
+        </div>
+        
+        <!-- Country (Optional) -->
+        <div class="form-group">
+            <label for="teamCountry">Country</label>
+            <input type="text" 
+                   id="teamCountry"
+                   class="form-control" 
+                   ng-model="team.country" 
+                   placeholder="e.g., United States, South Korea">
+        </div>
+        
+        <!-- Region (Optional) -->
+        <div class="form-group">
+            <label for="teamRegion">Region</label>
+            <input type="text" 
+                   id="teamRegion"
+                   class="form-control" 
+                   ng-model="team.region" 
+                   placeholder="e.g., NA, EU, KR, CN">
+            <small class="form-text text-muted">Competitive region abbreviation</small>
+        </div>
+        
+        <!-- Founded Date (Optional) -->
+        <div class="form-group">
+            <label for="teamFounded">Founded Date</label>
+            <input type="date" 
+                   id="teamFounded"
+                   class="form-control" 
+                   ng-model="team.foundedDate">
+        </div>
+        
+        <!-- Logo URL (Optional) -->
+        <div class="form-group">
+            <label for="teamLogo">Logo URL</label>
+            <input type="url" 
+                   id="teamLogo"
+                   class="form-control" 
+                   ng-model="team.logoUrl" 
+                   placeholder="https://example.com/logo.png">
+        </div>
+        
+        <!-- Description (Optional) -->
+        <div class="form-group">
+            <label for="teamDescription">Description</label>
+            <textarea id="teamDescription"
+                      class="form-control" 
+                      ng-model="team.description" 
+                      rows="4"
+                      placeholder="Team description and background..."></textarea>
+        </div>
+        
+                <!-- Form Actions -->
+                <div class="form-group mt-4">
+                    <button type="submit" 
+                            class="btn btn-primary mr-2"
+                            ng-disabled="teamForm.$invalid">
+                        💾 Save
+                    </button>
+                    <a ui-sref="teams" class="btn btn-secondary">❌ Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

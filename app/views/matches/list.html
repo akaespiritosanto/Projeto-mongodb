@@ -1,0 +1,89 @@
+<!-- 
+    Matches List View
+    Displays all matches with teams, scores, and tournament information.
+    Shows match results in a clear format.
+-->
+<div>
+    <!-- Page Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>⚔️ Matches</h2>
+        <a ui-sref="matchCreate" class="btn btn-primary">
+            ➕ Create New Match
+        </a>
+    </div>
+    
+    <!-- Matches Table -->
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Tournament</th>
+                    <th>Team 1</th>
+                    <th>Score</th>
+                    <th>Team 2</th>
+                    <th>Match Date</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Iterate over matches array -->
+                <tr ng-repeat="match in matches">
+                    <td>
+                        <span ng-if="match.tournamentId">{{ match.tournamentId.name }}</span>
+                        <span ng-if="!match.tournamentId" class="text-muted">N/A</span>
+                    </td>
+                    <!-- Team 1 with winner highlight -->
+                    <td>
+                        <span ng-if="match.team1Id" 
+                              ng-class="{'font-weight-bold text-success': match.winnerId && match.winnerId._id === match.team1Id._id}">
+                            {{ match.team1Id.name }}
+                        </span>
+                        <span ng-if="!match.team1Id" class="text-muted">N/A</span>
+                    </td>
+                    <!-- Score display -->
+                    <td>
+                        <strong>{{ match.team1Score || 0 }} - {{ match.team2Score || 0 }}</strong>
+                        <span ng-if="match.bestOf && match.bestOf > 1" class="badge badge-info ml-1">
+                            Bo{{ match.bestOf }}
+                        </span>
+                    </td>
+                    <!-- Team 2 with winner highlight -->
+                    <td>
+                        <span ng-if="match.team2Id" 
+                              ng-class="{'font-weight-bold text-success': match.winnerId && match.winnerId._id === match.team2Id._id}">
+                            {{ match.team2Id.name }}
+                        </span>
+                        <span ng-if="!match.team2Id" class="text-muted">N/A</span>
+                    </td>
+                    <!-- Match date -->
+                    <td>{{ match.matchDate | date:'MMM d, y h:mm a' }}</td>
+                    <!-- Status badge -->
+                    <td>
+                        <span ng-if="match.status === 'scheduled'" class="badge badge-secondary">Scheduled</span>
+                        <span ng-if="match.status === 'live'" class="badge badge-danger">Live</span>
+                        <span ng-if="match.status === 'completed'" class="badge badge-success">Completed</span>
+                        <span ng-if="match.status === 'postponed'" class="badge badge-warning">Postponed</span>
+                        <span ng-if="match.status === 'cancelled'" class="badge badge-dark">Cancelled</span>
+                    </td>
+                    <td>
+                        <a ui-sref="matchEdit({id: match._id})" class="btn btn-sm btn-warning mr-1">
+                            Edit
+                        </a>
+                        <button ng-click="deleteMatch(match._id)" class="btn btn-sm btn-danger">
+                            Delete
+                        </button>
+                    </td>
+                </tr>
+                <!-- Empty state -->
+                <tr ng-if="!matches || matches.length === 0">
+                    <td colspan="7" class="text-center text-muted py-4">
+                        <p class="mb-0">No matches found.</p>
+                        <a ui-sref="matchCreate" class="btn btn-sm btn-primary mt-2">Create your first match</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+

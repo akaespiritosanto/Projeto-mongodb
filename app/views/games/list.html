@@ -1,0 +1,60 @@
+<!-- 
+    Games List View
+    Displays all games in a table format with options to create, edit, and delete.
+    Uses ng-repeat to iterate over the games array from the controller.
+-->
+<div>
+    <!-- Page Header with Bootstrap flexbox -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>🎯 Games</h2>
+        <!-- Button to create new game -->
+        <a ui-sref="gameCreate" class="btn btn-primary">
+            ➕ Create New Game
+        </a>
+    </div>
+    
+    <!-- Games Table -->
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Name</th>
+                    <th>Abbreviation</th>
+                    <th>Genre</th>
+                    <th>Publisher</th>
+                    <th>Release Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- ng-repeat iterates over games array, creating a row for each game -->
+                <tr ng-repeat="game in games">
+                    <!-- Display game properties using AngularJS expressions -->
+                    <td><strong>{{ game.name }}</strong></td>
+                    <td><span class="badge badge-secondary">{{ game.abbreviation }}</span></td>
+                    <td>{{ game.genre || 'N/A' }}</td>
+                    <td>{{ game.publisher || 'N/A' }}</td>
+                    <td>{{ game.releaseDate ? (game.releaseDate | date:'shortDate') : 'N/A' }}</td>
+                    <td>
+                        <!-- ui-sref with parameters navigates to edit state with game ID -->
+                        <a ui-sref="gameEdit({id: game._id})" class="btn btn-sm btn-warning mr-1">
+                            Edit
+                        </a>
+                        <!-- ng-click calls controller function to delete game -->
+                        <button ng-click="deleteGame(game._id)" class="btn btn-sm btn-danger">
+                            Delete
+                        </button>
+                    </td>
+                </tr>
+                <!-- ng-if shows empty state when no games exist -->
+                <tr ng-if="!games || games.length === 0">
+                    <td colspan="6" class="text-center text-muted py-4">
+                        <p class="mb-0">No games found.</p>
+                        <a ui-sref="gameCreate" class="btn btn-sm btn-primary mt-2">Create your first game</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+

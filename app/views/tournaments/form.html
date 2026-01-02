@@ -1,0 +1,129 @@
+<!-- 
+    Tournament Form View (Create/Edit)
+    Form for creating or editing tournaments.
+    Includes date/time pickers and status selection.
+-->
+<div>
+    <h2 class="mb-4">{{ $state.current.name === 'tournamentCreate' ? '➕ Create New Tournament' : '✏️ Edit Tournament' }}</h2>
+    
+    <div class="card">
+        <div class="card-body">
+            <form ng-submit="saveData(tournament)" name="tournamentForm" novalidate>
+        <!-- Tournament Name (Required) -->
+        <div class="form-group">
+            <label for="tournamentName">Name <span class="text-danger">*</span></label>
+            <input type="text" 
+                   id="tournamentName"
+                   class="form-control" 
+                   ng-model="tournament.name" 
+                   placeholder="e.g., World Championship 2024"
+                   required>
+        </div>
+        
+        <!-- Game Selection (Required) -->
+        <div class="form-group">
+            <label for="tournamentGame">Game <span class="text-danger">*</span></label>
+            <select id="tournamentGame"
+                    class="form-control" 
+                    ng-model="tournament.gameId" 
+                    required>
+                <option value="">Select a game</option>
+                <option ng-repeat="game in games" value="{{ game._id }}">
+                    {{ game.name }} ({{ game.abbreviation }})
+                </option>
+            </select>
+        </div>
+        
+        <!-- Date Range -->
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="tournamentStartDate">Start Date & Time <span class="text-danger">*</span></label>
+                    <input type="datetime-local" 
+                           id="tournamentStartDate"
+                           class="form-control" 
+                           ng-model="tournament.startDate" 
+                           required>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="tournamentEndDate">End Date & Time <span class="text-danger">*</span></label>
+                    <input type="datetime-local" 
+                           id="tournamentEndDate"
+                           class="form-control" 
+                           ng-model="tournament.endDate" 
+                           required>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Prize Pool (Optional) -->
+        <div class="form-group">
+            <label for="tournamentPrizePool">Prize Pool (USD)</label>
+            <input type="number" 
+                   id="tournamentPrizePool"
+                   class="form-control" 
+                   ng-model="tournament.prizePool" 
+                   min="0"
+                   placeholder="0">
+            <small class="form-text text-muted">Total prize pool in US Dollars</small>
+        </div>
+        
+        <!-- Location (Optional) -->
+        <div class="form-group">
+            <label for="tournamentLocation">Location</label>
+            <input type="text" 
+                   id="tournamentLocation"
+                   class="form-control" 
+                   ng-model="tournament.location" 
+                   placeholder="e.g., Los Angeles, USA or Online">
+        </div>
+        
+        <!-- Format (Optional) -->
+        <div class="form-group">
+            <label for="tournamentFormat">Format</label>
+            <input type="text" 
+                   id="tournamentFormat"
+                   class="form-control" 
+                   ng-model="tournament.format" 
+                   placeholder="e.g., Single Elimination, Round Robin, Swiss">
+        </div>
+        
+        <!-- Status (Optional - defaults to 'upcoming') -->
+        <div class="form-group">
+            <label for="tournamentStatus">Status</label>
+            <select id="tournamentStatus"
+                    class="form-control" 
+                    ng-model="tournament.status">
+                <option value="upcoming">Upcoming</option>
+                <option value="ongoing">Ongoing</option>
+                <option value="completed">Completed</option>
+                <option value="cancelled">Cancelled</option>
+            </select>
+        </div>
+        
+        <!-- Description (Optional) -->
+        <div class="form-group">
+            <label for="tournamentDescription">Description</label>
+            <textarea id="tournamentDescription"
+                      class="form-control" 
+                      ng-model="tournament.description" 
+                      rows="4"
+                      placeholder="Tournament description and details..."></textarea>
+        </div>
+        
+                <!-- Form Actions -->
+                <div class="form-group mt-4">
+                    <button type="submit" 
+                            class="btn btn-primary mr-2"
+                            ng-disabled="tournamentForm.$invalid">
+                        💾 Save
+                    </button>
+                    <a ui-sref="tournaments" class="btn btn-secondary">❌ Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

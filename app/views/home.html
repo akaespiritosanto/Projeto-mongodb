@@ -1,0 +1,76 @@
+<!-- 
+    Home/Dashboard View
+    Main landing page with navigation cards to all entity sections.
+    Simple Bootstrap styling for easy understanding.
+-->
+<div>
+    <!-- Welcome Section with Bootstrap Jumbotron -->
+    <div class="jumbotron">
+        <h1 class="display-4">🎮 Esports Statistics Platform</h1>
+        <p class="lead">Track and manage statistics for games, teams, players, tournaments, and matches.</p>
+        <hr class="my-4" style="border-color: rgba(255,255,255,0.3);">
+        <p class="mb-0">Navigate through the menu or use the cards below to manage different entities in the system.</p>
+    </div>
+
+    <!-- Entity Navigation Cards - First Row -->
+    <div class="row">
+        <!-- Games Card -->
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">🎯 Games</h5>
+                    <p class="card-text">Manage video games in the esports ecosystem. Add games like League of Legends, Counter-Strike 2, and more.</p>
+                    <a ui-sref="games" class="btn btn-primary btn-block mt-auto">View Games</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Teams Card -->
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">👥 Teams</h5>
+                    <p class="card-text">Manage esports teams and their information. Track team details, regions, and associations with games.</p>
+                    <a ui-sref="teams" class="btn btn-primary btn-block mt-auto">View Teams</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Players Card -->
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">👤 Players</h5>
+                    <p class="card-text">Manage individual esports players. Track player information, roles, and team associations.</p>
+                    <a ui-sref="players" class="btn btn-primary btn-block mt-auto">View Players</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Second Row of Cards -->
+    <div class="row">
+        <!-- Tournaments Card -->
+        <div class="col-md-6 mb-4">
+            <div class="card h-100">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">🏆 Tournaments</h5>
+                    <p class="card-text">Manage tournaments and competitions. Track tournament details, dates, prize pools, and status.</p>
+                    <a ui-sref="tournaments" class="btn btn-primary btn-block mt-auto">View Tournaments</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Matches Card -->
+        <div class="col-md-6 mb-4">
+            <div class="card h-100">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">⚔️ Matches</h5>
+                    <p class="card-text">Manage individual matches and results. Track match scores, dates, and outcomes between teams.</p>
+                    <a ui-sref="matches" class="btn btn-primary btn-block mt-auto">View Matches</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

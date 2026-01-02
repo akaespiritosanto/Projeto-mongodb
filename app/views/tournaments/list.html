@@ -1,0 +1,74 @@
+<!-- 
+    Tournaments List View
+    Displays all tournaments with dates, prize pools, and status.
+    Uses date filter to format dates nicely.
+-->
+<div>
+    <!-- Page Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>🏆 Tournaments</h2>
+        <a ui-sref="tournamentCreate" class="btn btn-primary">
+            ➕ Create New Tournament
+        </a>
+    </div>
+    
+    <!-- Tournaments Table -->
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Name</th>
+                    <th>Game</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Prize Pool</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Iterate over tournaments array -->
+                <tr ng-repeat="tournament in tournaments">
+                    <td><strong>{{ tournament.name }}</strong></td>
+                    <td>
+                        <span ng-if="tournament.gameId">{{ tournament.gameId.name }}</span>
+                        <span ng-if="!tournament.gameId" class="text-muted">N/A</span>
+                    </td>
+                    <!-- date filter formats the date -->
+                    <td>{{ tournament.startDate | date:'MMM d, y' }}</td>
+                    <td>{{ tournament.endDate | date:'MMM d, y' }}</td>
+                    <!-- Format prize pool with currency and thousand separators -->
+                    <td>
+                        <span ng-if="tournament.prizePool" class="text-success font-weight-bold">
+                            ${{ tournament.prizePool | number }}
+                        </span>
+                        <span ng-if="!tournament.prizePool" class="text-muted">N/A</span>
+                    </td>
+                    <!-- Status badge with different colors -->
+                    <td>
+                        <span ng-if="tournament.status === 'upcoming'" class="badge badge-info">Upcoming</span>
+                        <span ng-if="tournament.status === 'ongoing'" class="badge badge-success">Ongoing</span>
+                        <span ng-if="tournament.status === 'completed'" class="badge badge-secondary">Completed</span>
+                        <span ng-if="tournament.status === 'cancelled'" class="badge badge-danger">Cancelled</span>
+                    </td>
+                    <td>
+                        <a ui-sref="tournamentEdit({id: tournament._id})" class="btn btn-sm btn-warning mr-1">
+                            Edit
+                        </a>
+                        <button ng-click="deleteTournament(tournament._id)" class="btn btn-sm btn-danger">
+                            Delete
+                        </button>
+                    </td>
+                </tr>
+                <!-- Empty state -->
+                <tr ng-if="!tournaments || tournaments.length === 0">
+                    <td colspan="7" class="text-center text-muted py-4">
+                        <p class="mb-0">No tournaments found.</p>
+                        <a ui-sref="tournamentCreate" class="btn btn-sm btn-primary mt-2">Create your first tournament</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+

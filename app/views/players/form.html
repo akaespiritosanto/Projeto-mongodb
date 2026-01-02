@@ -1,0 +1,115 @@
+<!-- 
+    Player Form View (Create/Edit)
+    Form for creating or editing players.
+    Includes dropdowns for game and team selection.
+-->
+<div>
+    <h2 class="mb-4">{{ $state.current.name === 'playerCreate' ? '➕ Create New Player' : '✏️ Edit Player' }}</h2>
+    
+    <div class="card">
+        <div class="card-body">
+            <form ng-submit="saveData(player)" name="playerForm" novalidate>
+        <!-- Username (Required) -->
+        <div class="form-group">
+            <label for="playerUsername">Username <span class="text-danger">*</span></label>
+            <input type="text" 
+                   id="playerUsername"
+                   class="form-control" 
+                   ng-model="player.username" 
+                   placeholder="e.g., Faker, s1mple"
+                   required>
+            <small class="form-text text-muted">In-game username or gamer tag</small>
+        </div>
+        
+        <!-- Real Name (Optional) -->
+        <div class="form-group">
+            <label for="playerRealName">Real Name</label>
+            <input type="text" 
+                   id="playerRealName"
+                   class="form-control" 
+                   ng-model="player.realName" 
+                   placeholder="Player's real name">
+        </div>
+        
+        <!-- Game Selection (Required) -->
+        <div class="form-group">
+            <label for="playerGame">Game <span class="text-danger">*</span></label>
+            <select id="playerGame"
+                    class="form-control" 
+                    ng-model="player.gameId" 
+                    required>
+                <option value="">Select a game</option>
+                <option ng-repeat="game in games" value="{{ game._id }}">
+                    {{ game.name }} ({{ game.abbreviation }})
+                </option>
+            </select>
+        </div>
+        
+        <!-- Team Selection (Optional - can be free agent) -->
+        <div class="form-group">
+            <label for="playerTeam">Team</label>
+            <select id="playerTeam"
+                    class="form-control" 
+                    ng-model="player.teamId">
+                <option value="">Free Agent</option>
+                <option ng-repeat="team in teams" value="{{ team._id }}">
+                    {{ team.name }} ({{ team.abbreviation }})
+                </option>
+            </select>
+            <small class="form-text text-muted">Leave empty if player is a free agent</small>
+        </div>
+        
+        <!-- Country (Optional) -->
+        <div class="form-group">
+            <label for="playerCountry">Country</label>
+            <input type="text" 
+                   id="playerCountry"
+                   class="form-control" 
+                   ng-model="player.country" 
+                   placeholder="e.g., South Korea, United States">
+        </div>
+        
+        <!-- Role (Optional) -->
+        <div class="form-group">
+            <label for="playerRole">Role</label>
+            <input type="text" 
+                   id="playerRole"
+                   class="form-control" 
+                   ng-model="player.role" 
+                   placeholder="e.g., Top, Jungle, AWPer, Striker, Support">
+            <small class="form-text text-muted">Player's position or role in the game</small>
+        </div>
+        
+        <!-- Birth Date (Optional) -->
+        <div class="form-group">
+            <label for="playerBirthDate">Birth Date</label>
+            <input type="date" 
+                   id="playerBirthDate"
+                   class="form-control" 
+                   ng-model="player.birthDate">
+        </div>
+        
+        <!-- Bio (Optional) -->
+        <div class="form-group">
+            <label for="playerBio">Bio</label>
+            <textarea id="playerBio"
+                      class="form-control" 
+                      ng-model="player.bio" 
+                      rows="4"
+                      placeholder="Player biography and background information..."></textarea>
+        </div>
+        
+                <!-- Form Actions -->
+                <div class="form-group mt-4">
+                    <button type="submit" 
+                            class="btn btn-primary mr-2"
+                            ng-disabled="playerForm.$invalid">
+                        💾 Save
+                    </button>
+                    <a ui-sref="players" class="btn btn-secondary">❌ Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,177 @@
+<!-- 
+    Match Form View (Create/Edit)
+    Form for creating or editing matches.
+    Includes dropdowns for tournament, game, and teams selection.
+-->
+<div>
+    <h2 class="mb-4">{{ $state.current.name === 'matchCreate' ? '➕ Create New Match' : '✏️ Edit Match' }}</h2>
+    
+    <div class="card">
+        <div class="card-body">
+            <form ng-submit="saveData(match)" name="matchForm" novalidate>
+        <!-- Tournament Selection (Required) -->
+        <div class="form-group">
+            <label for="matchTournament">Tournament <span class="text-danger">*</span></label>
+            <select id="matchTournament"
+                    class="form-control" 
+                    ng-model="match.tournamentId" 
+                    required>
+                <option value="">Select a tournament</option>
+                <option ng-repeat="tournament in tournaments" value="{{ tournament._id }}">
+                    {{ tournament.name }} ({{ tournament.gameId ? tournament.gameId.name : 'N/A' }})
+                </option>
+            </select>
+        </div>
+        
+        <!-- Game Selection (Required) -->
+        <div class="form-group">
+            <label for="matchGame">Game <span class="text-danger">*</span></label>
+            <select id="matchGame"
+                    class="form-control" 
+                    ng-model="match.gameId" 
+                    required>
+                <option value="">Select a game</option>
+                <option ng-repeat="game in games" value="{{ game._id }}">
+                    {{ game.name }} ({{ game.abbreviation }})
+                </option>
+            </select>
+        </div>
+        
+        <!-- Team Selection -->
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="matchTeam1">Team 1 <span class="text-danger">*</span></label>
+                    <select id="matchTeam1"
+                            class="form-control" 
+                            ng-model="match.team1Id" 
+                            required>
+                        <option value="">Select team 1</option>
+                        <option ng-repeat="team in teams" value="{{ team._id }}">
+                            {{ team.name }} ({{ team.abbreviation }})
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="matchTeam2">Team 2 <span class="text-danger">*</span></label>
+                    <select id="matchTeam2"
+                            class="form-control" 
+                            ng-model="match.team2Id" 
+                            required>
+                        <option value="">Select team 2</option>
+                        <option ng-repeat="team in teams" value="{{ team._id }}">
+                            {{ team.name }} ({{ team.abbreviation }})
+                        </option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Scores -->
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="matchScore1">Team 1 Score</label>
+                    <input type="number" 
+                           id="matchScore1"
+                           class="form-control" 
+                           ng-model="match.team1Score" 
+                           min="0" 
+                           value="0">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="matchScore2">Team 2 Score</label>
+                    <input type="number" 
+                           id="matchScore2"
+                           class="form-control" 
+                           ng-model="match.team2Score" 
+                           min="0" 
+                           value="0">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Match Date (Required) -->
+        <div class="form-group">
+            <label for="matchDate">Match Date & Time <span class="text-danger">*</span></label>
+            <input type="datetime-local" 
+                   id="matchDate"
+                   class="form-control" 
+                   ng-model="match.matchDate" 
+                   required>
+        </div>
+        
+        <!-- Status and Round -->
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="matchStatus">Status</label>
+                    <select id="matchStatus"
+                            class="form-control" 
+                            ng-model="match.status">
+                        <option value="scheduled">Scheduled</option>
+                        <option value="live">Live</option>
+                        <option value="completed">Completed</option>
+                        <option value="postponed">Postponed</option>
+                        <option value="cancelled">Cancelled</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="matchRound">Round</label>
+                    <input type="text" 
+                           id="matchRound"
+                           class="form-control" 
+                           ng-model="match.round" 
+                           placeholder="e.g., Quarterfinals, Group Stage">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Best Of Format -->
+        <div class="form-group">
+            <label for="matchBestOf">Best Of</label>
+            <input type="number" 
+                   id="matchBestOf"
+                   class="form-control" 
+                   ng-model="match.bestOf" 
+                   min="1" 
+                   max="7"
+                   value="1">
+            <small class="form-text text-muted">Number of games (e.g., 1 = single game, 3 = best of 3, 5 = best of 5)</small>
+        </div>
+        
+        <!-- Winner Selection (Optional) -->
+        <div class="form-group">
+            <label for="matchWinner">Winner</label>
+            <select id="matchWinner"
+                    class="form-control" 
+                    ng-model="match.winnerId">
+                <option value="">No winner yet</option>
+                <!-- Show all teams as potential winners -->
+                <option ng-repeat="team in teams" value="{{ team._id }}">
+                    {{ team.name }} ({{ team.abbreviation }})
+                </option>
+            </select>
+            <small class="form-text text-muted">Select winner after match is completed</small>
+        </div>
+        
+                <!-- Form Actions -->
+                <div class="form-group mt-4">
+                    <button type="submit" 
+                            class="btn btn-primary mr-2"
+                            ng-disabled="matchForm.$invalid">
+                        💾 Save
+                    </button>
+                    <a ui-sref="matches" class="btn btn-secondary">❌ Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
