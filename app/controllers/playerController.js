@@ -1,5 +1,4 @@
 routerApp.controller('playerController', function($scope, $state, $stateParams, playerService, gameService, teamService) {
-    
     $scope.saveData = function(player) {
         if ($state.current.name === 'playerCreate') {
             playerService.create(player).then(function() {

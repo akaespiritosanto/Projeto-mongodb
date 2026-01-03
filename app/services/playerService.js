@@ -1,5 +1,4 @@
 routerApp.service('playerService', function(apiService) {
-    
     this.getAll = function() {
         return apiService.get('/player');
     };

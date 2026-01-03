@@ -1,5 +1,4 @@
 routerApp.controller('gameController', function($scope, $state, $stateParams, gameService) {
-    
     $scope.saveData = function(game) {
         if ($state.current.name === 'gameCreate') {
             gameService.create(game).then(function() {

@@ -1,6 +1,7 @@
+require('dotenv').config();
 var mongoose = require('mongoose');
 
-var connectionString = 'mongodb://localhost:27017/esports_stats';
+var connectionString = process.env.MONGODB_ATLAS_URI || 'mongodb://localhost:27017/esports_stats';
 
 var connection = mongoose.connect(connectionString, {
     useNewUrlParser: true,
@@ -8,7 +9,7 @@ var connection = mongoose.connect(connectionString, {
 });
 
 mongoose.connection.on('connected', function() {
-    console.log('MongoDB connected successfully');
+    console.log('MongoDB connected successfully to:', connectionString.includes('mongodb+srv') ? 'Atlas' : 'Local');
 });
 
 mongoose.connection.on('error', function(err) {

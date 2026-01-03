@@ -1,7 +1,6 @@
 var routerApp = angular.module('routerApp', ['ui.router']);
 
 routerApp.config(function($stateProvider, $urlRouterProvider) {
-    
     $urlRouterProvider.otherwise('/home');
     
     $stateProvider
@@ -85,7 +84,6 @@ routerApp.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: 'views/matches/form.html',
             controller: 'matchController'
         });
-        
 }).constant("globalConfig", {
     apiAddress: 'http://localhost:3000/api'
 });

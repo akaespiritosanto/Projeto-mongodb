@@ -1,5 +1,4 @@
 routerApp.service('gameService', function(apiService) {
-    
     this.getAll = function() {
         return apiService.get('/game');
     };
