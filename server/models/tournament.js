@@ -4,53 +4,44 @@ var mongoose = require('mongoose'),
 
 var tournamentSchema = new Schema({
     _id: { type: objectId, auto: true },
-    
     name: { 
         type: String, 
         required: true,
         trim: true,
         maxlength: 200
     },
-    
     gameId: { 
         type: objectId, 
         ref: 'gameModel', 
         required: true 
     },
-    
     startDate: { 
         type: Date, 
         required: true 
     },
-    
     endDate: { 
         type: Date, 
         required: true 
     },
-    
     prizePool: { 
         type: Number,
         min: 0
     },
-    
     location: { 
         type: String,
         trim: true,
         maxlength: 200
     },
-    
     format: { 
         type: String,
         trim: true,
         maxlength: 100
     },
-    
     status: { 
         type: String, 
         default: 'upcoming',
         enum: ['upcoming', 'ongoing', 'completed', 'cancelled']
     },
-    
     description: { 
         type: String,
         maxlength: 2000

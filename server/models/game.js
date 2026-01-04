@@ -4,14 +4,12 @@ var mongoose = require('mongoose'),
 
 var gameSchema = new Schema({
     _id: { type: objectId, auto: true },
-    
     name: { 
         type: String, 
         required: true,
         trim: true,
         maxlength: 100
     },
-    
     abbreviation: { 
         type: String, 
         required: true,
@@ -19,23 +17,19 @@ var gameSchema = new Schema({
         uppercase: true,
         maxlength: 10
     },
-    
     genre: { 
         type: String,
         trim: true,
         maxlength: 50
     },
-    
     publisher: { 
         type: String,
         trim: true,
         maxlength: 100
     },
-    
     releaseDate: { 
         type: Date 
     },
-    
     description: { 
         type: String,
         maxlength: 500

@@ -1,10 +1,4 @@
-<!-- 
-    Players List View
-    Displays all players with their game, team, and role information.
-    Shows "Free Agent" for players without a team.
--->
 <div>
-    <!-- Page Header -->
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2>👤 Players</h2>
         <a ui-sref="playerCreate" class="btn btn-primary">
@@ -12,7 +6,6 @@
         </a>
     </div>
     
-    <!-- Players Table -->
     <div class="table-responsive">
         <table class="table table-striped table-hover">
             <thead class="thead-dark">
@@ -23,26 +16,35 @@
                     <th>Team</th>
                     <th>Role</th>
                     <th>Country</th>
+                    <th>Stats</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
-                <!-- Iterate over players array -->
                 <tr ng-repeat="player in players">
                     <td><strong>{{ player.username }}</strong></td>
                     <td>{{ player.realName || 'N/A' }}</td>
-                    <!-- Show game name from populated reference -->
                     <td>
                         <span ng-if="player.gameId">{{ player.gameId.name }}</span>
                         <span ng-if="!player.gameId" class="text-muted">N/A</span>
                     </td>
-                    <!-- Show team name or "Free Agent" status -->
                     <td>
                         <span ng-if="player.teamId" class="badge badge-success">{{ player.teamId.name }}</span>
                         <span ng-if="!player.teamId" class="badge badge-secondary">Free Agent</span>
                     </td>
                     <td>{{ player.role || 'N/A' }}</td>
                     <td>{{ player.country || 'N/A' }}</td>
+                    <td>
+                        <div ng-if="player.stats && (player.stats.matchesPlayed > 0 || player.stats.currentRating > 1000)" class="small">
+                            <div><strong>Rating:</strong> {{ player.stats.currentRating || 1000 }}</div>
+                            <div><strong>Win Rate:</strong> {{ player.stats.winRate || 0 }}%</div>
+                            <div><strong>K/D/A:</strong> {{ player.stats.kda || 0 }}</div>
+                            <div><strong>Matches:</strong> {{ player.stats.matchesPlayed || 0 }}</div>
+                        </div>
+                        <div ng-if="!player.stats || (player.stats.matchesPlayed === 0 && player.stats.currentRating <= 1000)" class="text-muted small">
+                            No stats available
+                        </div>
+                    </td>
                     <td>
                         <a ui-sref="playerEdit({id: player._id})" class="btn btn-sm btn-warning mr-1">
                             Edit
@@ -52,9 +54,8 @@
                         </button>
                     </td>
                 </tr>
-                <!-- Empty state -->
                 <tr ng-if="!players || players.length === 0">
-                    <td colspan="7" class="text-center text-muted py-4">
+                    <td colspan="8" class="text-center text-muted py-4">
                         <p class="mb-0">No players found.</p>
                         <a ui-sref="playerCreate" class="btn btn-sm btn-primary mt-2">Create your first player</a>
                     </td>

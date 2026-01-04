@@ -4,67 +4,56 @@ var mongoose = require('mongoose'),
 
 var matchSchema = new Schema({
     _id: { type: objectId, auto: true },
-    
     tournamentId: { 
         type: objectId, 
         ref: 'tournamentModel', 
         required: true 
     },
-    
     gameId: { 
         type: objectId, 
         ref: 'gameModel', 
         required: true 
     },
-    
     team1Id: { 
         type: objectId, 
         ref: 'teamModel', 
         required: true 
     },
-    
     team2Id: { 
         type: objectId, 
         ref: 'teamModel', 
         required: true 
     },
-    
     team1Score: { 
         type: Number, 
         default: 0,
         min: 0
     },
-    
     team2Score: { 
         type: Number, 
         default: 0,
         min: 0
     },
-    
     matchDate: { 
         type: Date, 
         required: true 
     },
-    
     status: { 
         type: String, 
         default: 'scheduled',
         enum: ['scheduled', 'live', 'completed', 'postponed', 'cancelled']
     },
-    
     round: { 
         type: String,
         trim: true,
         maxlength: 100
     },
-    
     bestOf: { 
         type: Number, 
         default: 1,
         min: 1,
         max: 7
     },
-    
     winnerId: { 
         type: objectId, 
         ref: 'teamModel' 

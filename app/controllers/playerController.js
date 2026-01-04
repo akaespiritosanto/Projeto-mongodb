@@ -64,7 +64,7 @@ routerApp.controller('playerController', function($scope, $state, $stateParams, 
             $scope.teams = [];
         });
     }
-
+    
     if ($state.current.name === 'players') {
         loadPlayers();
     } else if ($state.current.name === 'playerEdit') {
@@ -77,4 +77,3 @@ routerApp.controller('playerController', function($scope, $state, $stateParams, 
         loadTeams();
     }
 });
-
